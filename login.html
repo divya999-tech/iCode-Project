@@ -22,29 +22,24 @@
       #login-article h1 {
         font-family: Cambria, Cochin, Georgia, Times, "Times New Roman", serif;
       }
-      .form-label {
+      #login-article .mr-sm-5 {
         font-family: Georgia, "Times New Roman", Times, serif;
-        text-shadow: 0.5px 0.5px rosybrown;
-        float: left;
-        margin-left: 250px;
-      }
-      article .form-control {
-        width: 40%;
-        margin-left: 400px;
-        margin-bottom: 20px;
-
-        border: solid 1px rosybrown;
-      }
-      .form-check {
         text-shadow: 1px 1px rosybrown;
         margin-bottom: 20px;
       }
+
       #question-align {
         margin-bottom: 20px;
         margin-top: 20px;
       }
-      #button-align #button1 {
-        margin-right: 15px;
+
+      #login-article h1 {
+        margin-bottom: 25px;
+      }
+      #username,
+      #secret {
+        border: solid 1px rgb(160, 120, 120);
+        border-radius: 5px;
       }
     </style>
   </head>
@@ -110,14 +105,16 @@
           </form>
         </div>
       </nav>
+
       <article>
         <div id="login-article">
           <h1>Login Page</h1>
 
           <form>
-            <div class="col-auto" class="mb-3">
-              <label for="username" class="form-label">Username</label>
+            <div class="form-group">
+              <label for="username" class="mr-sm-5">Username:</label>
               <input
+                class="mb-1 mr-sm-5"
                 type="email"
                 id="username"
                 name="username"
@@ -126,9 +123,10 @@
               />
             </div>
 
-            <div class="col-auto" class="mb-3">
-              <label for="password" class="form-label">Password</label>
+            <div class="form-group">
+              <label for="password" class="mr-sm-5">Password:</label>
               <input
+                class="mb-1 mr-sm-5"
                 type="password"
                 id="secret"
                 name="secret"
@@ -137,18 +135,21 @@
               />
             </div>
 
-            <div class="form-check">
-              <input type="checkbox" id="checkbox" class="form-check-input" />
-              <label for="checkbox" class="form-check-label">Remember me</label>
+            <div class="form-group form-check">
+              <label for="checkbox" class="form-check-label"></label>
+              <input
+                type="checkbox"
+                id="checkbox"
+                class="form-check-input"
+              />Remember me
             </div>
-            <div id="button-align">
-              <button type="button" class="btn btn-success" id="button1">
-                Login
-              </button>
-              <button type="button" class="btn btn-success">
-                Forgot Password
-              </button>
-            </div>
+
+            <button type="button" class="btn btn-success" id="button1">
+              Login
+            </button>
+            <button type="button" class="btn btn-success">
+              Forgot Password
+            </button>
           </form>
           <form action="register.html">
             <p id="question-align" style="text-decoration: underline">

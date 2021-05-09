@@ -16,28 +16,29 @@
     />
     <link href="styles.css" rel="stylesheet" />
     <style>
-      .form-label {
-        font-family: Georgia, "Times New Roman", Times, serif;
-        margin-left: 300px;
-        vertical-align: text-bottom;
+      #register-form input {
+        position: absolute;
+        left: 700px;
+        border: solid 1px rgb(170, 94, 94);
+        border-radius: 5px;
       }
-      .form-control {
-        width: 40%;
-        float: right;
-        padding: 3px;
-        margin-right: 320px;
-        border: solid 1px rosybrown;
-        vertical-align: text-bottom;
+      #register-form label {
+        position: relative;
+        right: 100px;
       }
+
       .btn-success {
         border: dotted 1px green;
         width: 150px;
-        margin-top: 25px;
-        margin-left: 600px;
       }
+
       h1 {
-        margin-bottom: 25px;
-        margin-left: 95px;
+        margin-bottom: 20px;
+      }
+      #register-form {
+        text-align: center;
+        font-family: Georgia, "Times New Roman", Times, serif;
+        text-shadow: 1px 1px rosybrown;
       }
     </style>
   </head>
@@ -104,79 +105,80 @@
         </div>
       </nav>
       <article>
-        <h1
-          style="
-            text-align: center;
-            font-family: Georgia, 'Times New Roman', Times, serif;
-          "
-        >
-          Registration Form
-        </h1>
-        <form action="login.html">
-          <div class="mb-3 col-auto">
-            <label for="email" class="form-label">Email:</label>
-            <input
-              type="email"
-              class="form-control"
-              id="mail"
-              name="mail"
-              placeholder="Email/Username"
-            />
-          </div>
-          <div class="mb-3 col-auto">
-            <label for="frstname" class="form-label">First Name:</label>
-            <input
-              type="text"
-              class="form-control"
-              id="fname"
-              name="fname"
-              placeholder="First Name"
-            />
-          </div>
-          <div class="mb-3 col-auto">
-            <label for="lstname" class="form-label">Last Name:</label>
-            <input
-              type="text"
-              class="form-control"
-              id="lname"
-              name="lname"
-              placeholder="Last Name"
-            />
-          </div>
-          <div class="mb-3 col-auto">
-            <label for="passcode" class="form-label">Password:</label>
-            <input
-              type="password"
-              class="form-control"
-              id="security"
-              name="security"
-              placeholder="Password"
-            />
-          </div>
-          <div class="mb-3 col-auto">
-            <label for="confpass" class="form-label">Confirm Password:</label>
-            <input
-              type="password"
-              class="form-control"
-              id="passwo"
-              name="passwo"
-              placeholder="Confirm Password"
-            />
-          </div>
-          <div class="mb-3 col-auto">
-            <label for="mobile" class="form-label">Mobile Number:</label>
-            <input
-              type="tel"
-              class="form-control"
-              id="phone"
-              name="phone"
-              placeholder="Mobile Number"
-            />
-          </div>
-          <div class="mb-3 col-auto">
-            <button type="submit" class="btn btn-success">Register</button>
-          </div>
-        </form>
+        <div id="register-form">
+          <h1>Registration Form</h1>
+          <form action="login.html">
+            <div class="form-group">
+              <label for="email">Email:</label>
+              <input
+                class="mb-1 mr-sm-2"
+                type="email"
+                class="form-control"
+                id="mail"
+                name="mail"
+                placeholder="Email/Username"
+              />
+            </div>
+            <div class="form-group">
+              <label for="frstname">First Name:</label>
+              <input
+                class="mb-1 mr-sm-5"
+                type="text"
+                class="form-control"
+                id="fname"
+                name="fname"
+                placeholder="First Name"
+              />
+            </div>
+            <div class="form-group">
+              <label for="lstname">Last Name:</label>
+              <input
+                class="mb-1 mr-sm-5"
+                type="text"
+                class="form-control"
+                id="lname"
+                name="lname"
+                placeholder="Last Name"
+              />
+            </div>
+            <div class="form-group">
+              <label for="passcode">Password:</label>
+              <input
+                class="mb-1 mr-sm-5"
+                type="password"
+                class="form-control"
+                id="security"
+                name="security"
+                placeholder="Password"
+              />
+            </div>
+            <div class="form-group">
+              <label for="confpass">Confirm Password:</label>
+              <input
+                class="mb-1 mr-sm-4"
+                type="password"
+                class="form-control"
+                id="passwo"
+                name="passwo"
+                placeholder="Confirm Password"
+              />
+            </div>
+            <div class="form-group">
+              <label for="mobile">Mobile Number:</label>
+              <input
+                class="mb-1 mr-sm-5"
+                type="tel"
+                class="form-control"
+                id="phone"
+                name="phone"
+                placeholder="Mobile Number"
+              />
+            </div>
+            <div>
+              <button type="submit" class="btn btn-success">Register</button>
+            </div>
+          </form>
+        </div>
       </article>
       <footer>
         <p>&copy; powered and managed by Divya</p>
