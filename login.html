@@ -15,6 +15,7 @@
       crossorigin="anonymous"
     />
     <link href="styles.css" rel="stylesheet" />
+
     <style>
       #login-article {
         text-align: center;
@@ -42,6 +43,7 @@
         border-radius: 5px;
       }
     </style>
+    <script src="login-script.js"></script>
   </head>
   <body>
     <div id="container">
@@ -56,7 +58,12 @@
       <!--Start of navigation bar-->
 
       <nav
-        class="navbar navbar-expand bg-light navbar-light justify-content-between"
+        class="
+          navbar navbar-expand
+          bg-light
+          navbar-light
+          justify-content-between
+        "
       >
         <!--Brand logo-->
         <div class="container-fluid">
@@ -110,12 +117,12 @@
         <div id="login-article">
           <h1>Login Page</h1>
 
-          <form>
+          <form id="myform">
             <div class="form-group">
               <label for="username" class="mr-sm-5">Username:</label>
               <input
                 class="mb-1 mr-sm-5"
-                type="email"
+                type="text"
                 id="username"
                 name="username"
                 placeholder="Username"
@@ -144,10 +151,15 @@
               />Remember me
             </div>
 
-            <button type="button" class="btn btn-success" id="button1">
+            <button type="submit" class="btn btn-success" id="button1">
               Login
             </button>
-            <button type="button" class="btn btn-success">
+            <button
+              type="button"
+              class="btn btn-success"
+              id="frgtpass"
+              onclick="forgotPasswordButton()"
+            >
               Forgot Password
             </button>
           </form>

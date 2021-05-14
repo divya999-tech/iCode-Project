@@ -8,13 +8,15 @@
         <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
         <link href="styles.css" rel="stylesheet">
         <style>
-           
-            #contact-article{
-                margin-top:35px;
-                margin-left:25px;
-                float:left;
+
+            #article-container{
+                display:flex;
+                flex-direction: row;
+                justify-content: space-between;
             }
-            .m-4{
+           
+          
+           .m-4{
                 text-align: center;
                 font-family:Georgia, 'Times New Roman', Times, serif;
 
@@ -22,22 +24,17 @@
             
             #contact-section{
                 
-                position:absolute;
-                top:55vh;
-                left:75vw;
-                float:right;
-                clear:right;
+                margin-right:50px;
              font-family:Georgia, 'Times New Roman', Times, serif;
                
 
             }
-            .contact-span{
-                margin-left: 45px;
-                float:center;
-                
-
-            }
+            
         </style>
+        <script src="contact-script.js">
+            
+        
+        </script>
     </head>
     <body>
         <div id="container">
@@ -85,13 +82,15 @@
 </div>
     </nav>
     <section>
-        <article>
+        <article >
+            
             <div >
                 <h1  class="m-4">Contact Us</h1>
             <p class="m-3">For any queries or feedback, please contact</p>
             </div>
+           <div id="article-container"> 
             <div id="contact-article">
-            <form>
+            <form id="myform">
                 <div class="form-group m-3 mb-3" >
                     <input type="text" id="name" name="name" placeholder="Your Name">
                 </div>
@@ -109,7 +108,7 @@
                 </div>
             </form>
             </div>
-           <span class="contact-span"> <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2518.060781870707!2d-114.06738028489652!3d50.86707447953495!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x53719e1fd189e55d%3A0x5aa3cbda2d38cf19!2s113%20Belmont%20Terrace%20SW%2C%20Foothills%20County%2C%20AB%20T2X%200K4!5e0!3m2!1sen!2sca!4v1619807062281!5m2!1sen!2sca" width="600" height="450" style="border:0;" allowfullscreen="" loading="lazy"></iframe>
+           <span > <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2518.060781870707!2d-114.06738028489652!3d50.86707447953495!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x53719e1fd189e55d%3A0x5aa3cbda2d38cf19!2s113%20Belmont%20Terrace%20SW%2C%20Foothills%20County%2C%20AB%20T2X%200K4!5e0!3m2!1sen!2sca!4v1619807062281!5m2!1sen!2sca" width="600" height="450" style="border:0;" allowfullscreen="" loading="lazy"></iframe>
            </span>
             <div id="contact-section">
                 <span>Belmont</span><br>
@@ -120,6 +119,7 @@
                 <p>Holidays: 12 AM - 5 PM</p>
                 <p>Phone: 587-664-5955</p> 
             </div>
+        </div>
         </article>
     </section>
        
