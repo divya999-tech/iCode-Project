@@ -15,7 +15,7 @@
 }
 #container {
   background-image: url(images/Vintage.jpg);
-  max-width: 1350px;
+  max-width: 1350vw;
   margin-left: 1vw;
   margin-right: 1vw;
   display: block;
@@ -28,9 +28,7 @@ footer {
 .navbar {
   background-image: url(images/concrete-wall-3.png);
 }
-.form-inline input {
-  border-radius: 5px;
-}
+
 #footer-links .bi-google {
   margin-right: 30px;
 }

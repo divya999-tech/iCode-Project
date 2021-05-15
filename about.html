@@ -35,6 +35,10 @@
         border: 20px;
         padding: 20px;
       }
+      p {
+        text-align: justify;
+        margin-top: 20px;
+      }
     </style>
   </head>
   <body>
@@ -56,7 +60,12 @@
       <!--nav elements in the form of lists-->
 
       <nav
-        class="navbar navbar-expand bg-light navbar-light justify-content-between"
+        class="
+          navbar navbar-sm-expand
+          bg-light
+          navbar-light
+          justify-content-between
+        "
       >
         <div class="container-fluid">
           <!--Brand logo-->
@@ -88,22 +97,7 @@
             </li>
           </ul>
           <!--End of unordered list-->
-          <br /><!--Breaking spaces-->
-          <br />
-          <br />
-          <br />
-          <form class="form-inline">
-            <!--Start of form-->
-            <input
-              class="form-control mr-sm-2"
-              type="search"
-              id="search"
-              placeholder="search products"
-            />
-            <button class="btn btn-outline-success my-2 my-sm-0" type="submit">
-              Search
-            </button>
-          </form>
+
           <!--End of form-->
         </div>
       </nav>
