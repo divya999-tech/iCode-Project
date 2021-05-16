@@ -16,8 +16,8 @@
 #container {
   background-image: url(images/Vintage.jpg);
   max-width: 1350vw;
-  margin-left: 1vw;
-  margin-right: 1vw;
+  /*margin-left: 1vw;
+  margin-right: 1vw;*/
   display: block;
 }
 
