@@ -1,1 +1,1 @@
-# This is the project to biuld beautiful site related to ordering food.
+# This is the project to build a beautiful website to order food.
