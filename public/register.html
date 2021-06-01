@@ -29,7 +29,7 @@
 
       .btn-success {
         border: dotted 1px green;
-        width: 150px;
+        width: 200px;
         margin-top: 25px;
       }
 
@@ -101,7 +101,7 @@
       <article>
         <div id="register-form">
           <h1>Registration Form</h1>
-          <form id="myform">
+          <form id="myform" method="post" action="/register">
             <div class="form-group">
               <label for="email">Email:</label>
               <input
@@ -111,6 +111,7 @@
                 id="mail"
                 name="mail"
                 placeholder="Email/Username"
+                required
               />
             </div>
             <div class="form-group">
@@ -122,6 +123,7 @@
                 id="fname"
                 name="fname"
                 placeholder="First Name"
+                required
               />
             </div>
             <div class="form-group">
@@ -133,6 +135,7 @@
                 id="lname"
                 name="lname"
                 placeholder="Last Name"
+                required
               />
             </div>
             <div class="form-group">
@@ -144,6 +147,7 @@
                 id="security"
                 name="security"
                 placeholder="Password"
+                required
               />
             </div>
             <div class="form-group">
@@ -155,6 +159,7 @@
                 id="passwo"
                 name="passwo"
                 placeholder="Confirm Password"
+                required
               />
             </div>
             <div class="form-group">
