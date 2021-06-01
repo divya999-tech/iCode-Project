@@ -7,6 +7,35 @@ const port=5000;
 //ExpressJS application
 const app=express();
 
+app.get('/', (req,res)=>{
+  res.sendFile(__dirname +'/public/index.html');
+ 
+});
+//Route to About page
+app.get('/about', (req,res)=>{
+  res.sendFile(__dirname +'/public/about.html');
+});
+//Route to Menu page
+app.get('/menu', (req,res)=>{
+  res.sendFile(__dirname +'/public/menu.html');
+});
+//Route to faq page
+app.get('/faq', (req,res)=>{
+  res.sendFile(__dirname +'/public/faq.html');
+ 
+});
+//Route to Contact page
+app.get('/contact', (req,res)=>{
+  res.sendFile(__dirname +'/public/contact.html');
+});
+//Route to Login page
+app.get('/login', (req,res)=>{
+  res.sendFile(__dirname +'/public/login.html');
+});
+//Route to Register page
+app.get('/register', (req,res)=>{
+  res.sendFile(__dirname +'/public/register.html');
+});
 
 app.set('view engine', 'pug')
 //Route to Home page
