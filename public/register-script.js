@@ -1,4 +1,4 @@
-window.onload =  ()=> {
+window.onload = function () {
   let formRegister = document.getElementById("myform");
   
 
@@ -10,7 +10,8 @@ window.onload =  ()=> {
   let password = document.getElementById("security");
   let confirmPassword = document.getElementById("passwo");
   let mobileNumber = document.getElementById("phone");
-  let template =`emailaddress:  ${emailAddress.value} \n firstname: ${firstName.value} \n lastname: ${lastName.value} \n password: ${password.value} \n confirmpassword: ${confirmPassword.value} and mobilenumber: ${mobileNumber.value}`
+  //let phoneno = /^\(?([0-9]{3})\)?[-. ]?([0-9]{3})[-. ]?([0-9]{4})$/;
+  //let template =`emailaddress:  ${emailAddress.value} \n firstname: ${firstName.value} \n lastname: ${lastName.value} \n password: ${password.value} \n confirmpassword: ${confirmPassword.value} and mobilenumber: ${mobileNumber.value}`
   if ( emailAddress.value === "" ||
   firstName.value === "" ||
   lastName.value === "" ||
@@ -18,7 +19,8 @@ window.onload =  ()=> {
   confirmPassword.value === "" ||
   mobileNumber.value===""
    
-  ) {
+  ) 
+  {
     window.alert("All fields are required");
   } else if (password.value!==confirmPassword.value){
     
@@ -29,8 +31,8 @@ window.onload =  ()=> {
     
 
 
-  }else if(isNaN(mobileNumber.value) ){
-    window.alert("please check the number. It should be only number")
+  }else if(isNaN(mobileNumber.value)) {
+    window.alert("Please check")
 
   }else if(firstName.value.length>30){
     window.alert("Please check the length of the first name characters ")
@@ -44,8 +46,7 @@ window.onload =  ()=> {
   }
   
   else{
-    window.alert(template)
-    }
+    //window.alert(template)
     const data={
       emailaddress:emailAddress.value ,
     firstName:firstName.value ,
@@ -55,22 +56,38 @@ window.onload =  ()=> {
     mobile:mobileNumber.value
     
     };
-   
     let options={
       method:'POST',
      headers: { "Content-type": "application/json; charset=UTF-8"  },
       body:JSON.stringify(data)
     };
-
- const response = await fetch('/register', options);
- console.log(response)
-    const json= await response.json();
+    const response = await fetch('/register', options);
+ /*console.log(response)
+   const json= await response.json();
    console.log(json);
    if(response.status==200){
-    window.location.href="login.html"
+    window.location.href="/login"
    }else{
     console.log("error")
-   }
+   }*/
+
+
+
+   if(response.status==200){
+    const json= await  response.json();
+   
+   let result =document.getElementById("prayer");
+   result.innerHTML=`User:Email: ${emailAddress.value} with id: ${json} \n Firstname: ${firstName.value} with id: ${json}  \n Lastname: ${lastName.value} with id: ${json} \n Password: ${password.value} with id: ${json} \n Confirm Password: ${confirmPassword.value} with id: ${json} \n Mobile: ${mobileNumber.value} with id: ${json}`
+  }else{
+    result.innerHTML="There is an error. Please check."
+  }
+
+    };
+    
+    
+    
+
+ 
   
    
     
@@ -81,21 +98,3 @@ window.onload =  ()=> {
   
 }
 
-//window.location.href="login.html";
-
- //const url="http://localhost:5000/register"
-/*fetch('/public/register.html', options).then(response =>{
-      console.log(response)
-
-    });*/
-//const response=
-  /*if (response.ok){
-      window.location.pathname="login.html";
-   }else{
-     console.log("error")
-   }*/
-
-
-
-   //, "charset=UTF-8"
-   

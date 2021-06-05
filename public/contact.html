@@ -86,24 +86,27 @@
             </div>
            <div class="d-flex flex-row flex-wrap " id="article-container"> 
             <div id="contact-article" class="flex-sm-fill">
-            <form id="myform">
+            <form id="myform" method="POST" action="/contact">
                 <div class="form-group m-3 mb-3" >
-                    <input type="text" id="name" name="name" placeholder="Your Name">
+                    <input type="text" id="name" name="name" placeholder="Your Name" required>
                 </div>
                 <div class="form-group m-3 mb-3">
-                    <input type="email" id="mail" name="mail" placeholder="Your Email">
+                    <input type="email" id="mail" name="mail" placeholder="Your Email" required>
                 </div>
                 <div class="form-group m-3 mb-3">
-                    <input type="tel" id="phone" name="phone" placeholder="Your Phone Number">
+                    <input type="tel" id="phone" name="phone" placeholder="Your Phone Number" required>
                 </div>
                 <div class="form-group m-3 mb-3" >
                     <textarea type="text" id="message" name="message" placeholder="Your Message" rows="3"></textarea>
                 </div>
                 <div> 
                     <button type="submit" class="btn btn-primary m-3 mb-3">Submit</button>
+                    
                 </div>
             </form>
             </div>
+            <p id="result"></p>
+            
            <span class="flex-sm-fill" > <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2518.060781870707!2d-114.06738028489652!3d50.86707447953495!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x53719e1fd189e55d%3A0x5aa3cbda2d38cf19!2s113%20Belmont%20Terrace%20SW%2C%20Foothills%20County%2C%20AB%20T2X%200K4!5e0!3m2!1sen!2sca!4v1619807062281!5m2!1sen!2sca" width="470" height="400" style="border:0;" allowfullscreen="" loading="lazy"></iframe>
            </span>
             <div id="contact-section" class="flex-sm-fill" >

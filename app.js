@@ -1,27 +1,17 @@
 //Importing  express module
+//////////**********************Importing middlewares***************///////////////////
 const express=require("express");
-const bodyParser = require('body-parser')
-const urlencodedParser = express.urlencoded({ extended: false });
-
+const urlencodedParser = express.urlencoded({ extended: true });
+const pug =require("pug")
+const MongoClient = require("mongodb").MongoClient;
+const url = "mongodb://localhost:27017";
 const port=5000;
 //ExpressJS application
 const app=express();
-
+/////////////********************Routes******************/////////////
+//Routes for home page
 app.get('/', (req,res)=>{
   res.sendFile(__dirname +'/public/index.html');
- 
-});
-//Route to About page
-app.get('/about', (req,res)=>{
-  res.sendFile(__dirname +'/public/about.html');
-});
-//Route to Menu page
-app.get('/menu', (req,res)=>{
-  res.sendFile(__dirname +'/public/menu.html');
-});
-//Route to faq page
-app.get('/faq', (req,res)=>{
-  res.sendFile(__dirname +'/public/faq.html');
  
 });
 //Route to Contact page
@@ -36,188 +26,166 @@ app.get('/login', (req,res)=>{
 app.get('/register', (req,res)=>{
   res.sendFile(__dirname +'/public/register.html');
 });
-
+//Route to About page
+app.get('/about', (req,res)=>{
+  res.sendFile(__dirname +'/public/about.html');
+});
+//Route to Menu page
+app.get('/menu', (req,res)=>{
+  res.sendFile(__dirname +'/public/menu.html');
+});
+//Route to faq page
+app.get('/faq', (req,res)=>{
+  res.sendFile(__dirname +'/public/faq.html');
+ 
+});
+//////////***********************Template Engine*************8888888888888888//////////////////
 app.set('view engine', 'pug')
 //Route to Home page
+//app.get('/views/welcome', (req,res)=>{
+ // res.send('welcome')
+//})
 
-
+//////////////*******************Middleware******************///////////////
 app.use(express.static("public"))
 app.use(express.json())
-app.use(express.urlencoded({ extended: true }))
+app.use(urlencodedParser)
 
+app.use(function (req, res, next) {
+    res.header("Access-Control-Allow-Origin", "*");
+    res.header(
+    "Access-Control-Allow-Headers",
+    "Origin, X-Requested-With, Content-Type, Accept"
+  );
+  next();
+});
 
+///////////////**********GET method for views*****************////////////////
 app.get('/welcome', (req,res)=>{
-  res.render(__dirname +'/views/welcome.pug');
+  res.render('welcome')
 })
 
-app.post("/login", (req, res) => {
-  const username = req.query.username;
-  const password = req.query.password;
+////////////////*******************POST requests for Register**********************////////////////
+app.post ('/register', urlencodedParser, (req, res)=>{
   
+  try{
+  // console.log(req.body);
+    let emailAddress=req.body.emailaddress;
+  let firstName= req.body.firstName;
+  let lastName=req.body.lastName;
+  let password=req.body.password;
+  let confirmPassword=req.body.confirmPassword;
+  let mobile=req.body.mobile
+  if(emailAddress && firstName && lastName && password && confirmPassword || mobile)
+  {
+    MongoClient.connect(url, { useUnifiedTopology: true }, (err, client)=> {
+      const db=client.db("register")
+      const collection =db.collection("users")
+      const doc={email:emailAddress , firstName:firstName, lastName:lastName , password:password, confirmPassword:confirmPassword , mobile:mobile };
+      collection.insertOne(doc), (error,result) =>{
+        if(!error){
+          client.close();
+          console.log(result.ops)
+          res.send (doc)
 
-  res.send(
-    `We got the following values from the query string: ${username}, and ${password}`
-  );
+        }else{
+          client.close();
+          res.send("is an error")
+        }
+        
+      };
+    });
+        
+      
+   }else{
+    return res.status(400).send("bad request");
+
+   }
+
+  }catch(ex){
+    return res.status(500).send("error");
+  }
 });
 
-app.post('/register',  (req,res)=>{
- console.log(req.body);
-res.json({
-  email:req.body,
-   firstName:req.body,
-   lastName:req.body,
-   password:req.body,
-   confirmPassword:req.body,
-   mobileNumber:req.body
+
+///////////////////**********POST for Login**************//////////////////
+app.post ('/login', urlencodedParser, (req, res)=>{
+  
+  try{
+  
+    let username=req.body.name;
+    let password=req.body.password;
+    if(username && password){
+    
+      MongoClient.connect(url, { useUnifiedTopology: true }, (err, client)=> {
+        const db=client.db("login")
+        const collection =db.collection("loginusers")
+        const doc={username:username , password:password };
+        collection.insertOne(doc), (error,result) =>{
+          if(!error){
+            client.close();
+            console.log(result.ops)
+            res.send (doc)
+  
+          }else{
+            client.close();
+            res.send("is an error")
+          }
+          
+        };
+      });
+
+    }else{
+      return res.status(400).send("bad request");
+
+    }
+  }catch(ex){
+    return res.status(500).send("error");
+  }
 });
-   
+///////////////////**********POST for Contact**************//////////////////
+app.post ('/contact', urlencodedParser, (req, res)=>{
+  
+  try{
+    //console.log(req.body);
+    let name=req.body.yourName;
+    let email=req.body.yourEmail;
+    let phone=req.body.phoneNumber;
+    let message=req.body.message
+    if(name && email && phone && message){
+     
+      MongoClient.connect(url, { useUnifiedTopology: true }, (err, client)=> {
+        const db=client.db("contact")
+        const collection =db.collection("contactusers")
+        const doc={yourname:name , yourEmail:email, mobile:phone, message:message };
+        collection.insertOne(doc), (error,result) =>{
+          if(!error){
+            client.close();
+            console.log(result.ops)
+            res.send (doc)
+  
+          }else{
+            client.close();
+            res.send("is an error")
+          }
+          
+        };
+      });
+
+    }else{
+      return res.status(400).send("bad request");
+
+    }
+  }catch(ex){
+    return res.status(500).send("error");
+  }
 });
 
 
-/*app.post('/login', (req,res)=>{
-  console.log(req.body);
- res.json({
-   username:req.body,
-   password:req.body,
-    
- });
-    
- });*/
 
- app.post('/contact', (req,res)=>{
-  console.log(req.body);
- res.json({
-   yourName:req.body,
-   yourEmail:req.body,
-   phoneNumber:req.body,
-   message:req.body
-    
- });
-    
- });
-
+////////////////////////***************Port listening*******************///////////////
 app.listen(port, ()=>{
   console.log(`Server is listening on port ${port}`)
 });
 
 
-
-
-
-
-  
-  
-  
-//${email} ${firstName}  ${lastName}  ${password}  ${confirmPassword}  ${mobileNumber}`
-
-
-
-
-
-
-
-/*app.post('/public/register',  (req,res)=>{
-    console.log("I got a request")
-    console.log(req.body)
-    const data=req.body
-    
-    
- res.json({
-    email:`${data.emailaddress}`,
-    firstname:`${data.firstName}`,
-    lastname:`${data.lastName}`,
-    password:`${data.password}`,
-    confirmpassword:`${data.confirmPassword}`,
-    mobilenumber:`${data.mobile}`
-    
-    });
- 
-});
-
-app.post('public/login', (req,res)=>{
-    console.log(req.body)
-    const data=req.body;
-    res.json({
-        name:`${data.name}`,
-        password:`${data.password}`
-    });
-});*/
-
-
-
-
-//app.use('/', router);
-//const path = require("path");
-//const router = express.Router();
-
-//const { response } = require("express");
-//const http=require("http")
-
-
-//const bodyParser = require('body-parser')
-//const multer = require('multer'); // v1.0.5
-
-//const upload = multer()
-//const login=require("./routes/login")
-//const register=require("./routes/register")
-//const contact=require("./routes/contact")
-
-//app.use(express.urlencoded({ extended: true }))
-
-/*app.get('/public/register', (req, res)=>{
-    const data={
-email:req.body.emailadress,
-/*firstname:`${data.firstName}`,
-lastname:`${data.lastName}`,
-password:`${data.password}`,
-confirmpassword:`${data.confirmPassword}`,
-mobilenumber:`${data.mobile}`*/
-
-//}
-   
-    //res.send(req.body);
-//});
-
-
-
-//res.send(req.body.mail)
-
- //response.status(200).send(request.body)
-
-
-//app.get('/public/register/:email/:firstname', (req, res)=>{
-   //res.send(req.params)
-//});
- 
-
-
-/*{
-    email:`${data.emailaddress}`,
-    firstname:`${data.firstName}`,
-    lastname:`${data.lastName}`,
-    password:`${data.password}`,
-    confirmpassword:`${data.confirmPassword}`,
-    mobilenumber:`${data.mobile}`
-
-    
-}*/
-
-/*const values={
-    email:`${data.emailaddress}`,
-    firstname:`${data.firstName}`,
-    lastname:`${data.lastName}`,
-    password:`${data.password}`,
-    confirmpassword:`${data.confirmPassword}`,
-    mobilenumber:`${data.mobile}`
-
-    
-}*/
-/*app.get("/", (req, res)=>{
-    res.sendFile(path.join(_dirname + '/login.html'))
-});
-app.get("/", (req, res)=>{
-        res.sendFile(path.join(_dirname + '/register.html'))
-});
-app.get("/", (req, res)=>{
-    res.sendFile(path.join(_dirname + '/contact.html'))
-});*/

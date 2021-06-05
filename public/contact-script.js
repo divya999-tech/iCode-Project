@@ -9,7 +9,7 @@ window.onload=function(){
     formContact.addEventListener("submit", async (event)=>{
         event.preventDefault();
         if(yourName.value=== ""  || yourEmail.value=== "" || phoneNumber.value=== "" || message.value=== ""){
-            console.log("Please fill all the fields")
+            window.alert("Please fill all the fields")
             
         }else if(yourName.value.length>30) {
             window.alert("PLease check the length of the characters")
@@ -27,31 +27,40 @@ window.onload=function(){
 
           }
         else{
-           window.alert(`Your Name: ${yourName.value} \n Your Email: ${yourEmail.value} \n Your Phone NUmber: ${phoneNumber.value} \n Your Message: ${message.value}`);
-        }
-        const data2={
-          yourName: yourName.value,
-          yourEmail:yourEmail.value,
-          phoneNumber:phoneNumber.value,
-          message:message.value
-             
-         };
+           //window.alert(`Your Name: ${yourName.value} \n Your Email: ${yourEmail.value} \n Your Phone NUmber: ${phoneNumber.value} \n Your Message: ${message.value}`);
+           const data2={
+            yourName: yourName.value,
+            yourEmail:yourEmail.value,
+            phoneNumber:phoneNumber.value,
+            message:message.value
+               
+           };
+          
+           let options={
+             method:'POST',
+            headers: { "Content-type": "application/json; charset=UTF-8"  },
+             body:JSON.stringify(data2)
+           };
         
-         let options={
-           method:'POST',
-          headers: { "Content-type": "application/json; charset=UTF-8"  },
-           body:JSON.stringify(data2)
-         };
-      
-      const response = await  fetch('/contact', options);
-      console.log(response)
-         const json= await  response.json();
-        console.log(json);
-        if(response.status==200){
-         window.location.href="welcome.pug"
-        }else{
-         console.log("error")
-        }
+        const response = await  fetch('/contact', options);
+        //console.log(response)
+          
+          //console.log(json);
+          if(response.status==200){
+            const json= await  response.json();
+           
+           let result =document.getElementById("result");
+           result.innerHTML=`User:Name: ${yourName.value} with id: ${json} \n Email: ${yourEmail.value} with id: ${json}  \n Mobile: ${phoneNumber.value} with id: ${json} \n Message: ${message.value} with id: ${json}`
+          }else{
+            result.innerHTML="There is an error. Please check."
+          }
+          }
+
+        
     });
 
     };
+
+   
+
+     
