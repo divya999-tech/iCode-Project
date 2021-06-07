@@ -67,17 +67,18 @@ window.onload = function () {
    console.log(json);
    if(response.status==200){
     window.location.href="/login"
+    
    }else{
     console.log("error")
    }*/
 
-
+   const json= await  response.json();
 
    if(response.status==200){
-    const json= await  response.json();
-   
+    
+   console.log(json)
    let result =document.getElementById("prayer");
-   result.innerHTML=`User:Email: ${emailAddress.value} with id: ${json} \n Firstname: ${firstName.value} with id: ${json}  \n Lastname: ${lastName.value} with id: ${json} \n Password: ${password.value} with id: ${json} \n Confirm Password: ${confirmPassword.value} with id: ${json} \n Mobile: ${mobileNumber.value} with id: ${json}`
+   result.innerHTML=`User:Email: ${emailAddress.value}  \n Firstname: ${firstName.value}  \n Lastname: ${lastName.value}  \n Password: ${password.value}  \n Confirm Password: ${confirmPassword.value} \n Mobile: ${mobileNumber.value} `
   }else{
     result.innerHTML="There is an error. Please check."
   }
@@ -90,11 +91,10 @@ window.onload = function () {
  
   
    
-    
+ // }
     
     
   });
   
   
 }
-

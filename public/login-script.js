@@ -30,23 +30,24 @@ window.onload = function () {
        };
     
     const response = await  fetch('/login', options);
-   /* console.log(response)
+   //console.log(response)
        const json= await  response.json();
-      console.log(json);
+     // console.log(json);
       if(response.status==200){
        window.location.href="/menu"
       }else{
        console.log("error")
       }
-*/
-      if(response.status==200){
+
+     /* if(response.status==200){
         const json= await  response.json();
-       //window.location.href="./welcome"
+        
        let result =document.getElementById("result");
        result.innerHTML=`User:Name: ${name.value} with id: ${json} \n Password: ${password.value} with id: ${json}  `
+       
       }else{
         result.innerHTML="There is an error. Please check."
-      }
+      }*/
 
 
 

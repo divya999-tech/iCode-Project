@@ -43,17 +43,25 @@ window.onload=function(){
            };
         
         const response = await  fetch('/contact', options);
+        console.log(response)
+            const json= await  response.json();
+           console.log(json);
+           if(response.status==200){
+            window.location.href="./welcome"
+           }else{
+            console.log("error")
+           }
         //console.log(response)
           
           //console.log(json);
-          if(response.status==200){
+          /*if(response.status==200){
             const json= await  response.json();
            
            let result =document.getElementById("result");
            result.innerHTML=`User:Name: ${yourName.value} with id: ${json} \n Email: ${yourEmail.value} with id: ${json}  \n Mobile: ${phoneNumber.value} with id: ${json} \n Message: ${message.value} with id: ${json}`
           }else{
             result.innerHTML="There is an error. Please check."
-          }
+          }*/
           }
 
         

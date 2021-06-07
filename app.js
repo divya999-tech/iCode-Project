@@ -67,45 +67,77 @@ app.get('/welcome', (req,res)=>{
 
 ////////////////*******************POST requests for Register**********************////////////////
 app.post ('/register', urlencodedParser, (req, res)=>{
+  //console.log(req.body);
   
   try{
-  // console.log(req.body);
-    let emailAddress=req.body.emailaddress;
-  let firstName= req.body.firstName;
+  
+  let emailAddress=req.body.emailaddress;
+  let firstName=req.body.firstName;
   let lastName=req.body.lastName;
   let password=req.body.password;
   let confirmPassword=req.body.confirmPassword;
   let mobile=req.body.mobile
-  if(emailAddress && firstName && lastName && password && confirmPassword || mobile)
-  {
+  
+ if(emailAddress && firstName && lastName && password && confirmPassword && mobile)
+  { 
+    
     MongoClient.connect(url, { useUnifiedTopology: true }, (err, client)=> {
       const db=client.db("register")
       const collection =db.collection("users")
       const doc={email:emailAddress , firstName:firstName, lastName:lastName , password:password, confirmPassword:confirmPassword , mobile:mobile };
-      collection.insertOne(doc), (error,result) =>{
+      collection.insertOne(doc, (error) =>{
         if(!error){
+         // console.log(doc)
           client.close();
-          console.log(result.ops)
-          res.send (doc)
+          //console.log(result.ops)
+          res.json({status:'ok'})
+         // res.send(doc)
+          
 
         }else{
           client.close();
-          res.send("is an error")
+          res.json({status:"is an error"})
         }
         
-      };
+      });
     });
-        
-      
+    //return res.status(200).json({}) 
+    
    }else{
-    return res.status(400).send("bad request");
+    //res.status(400).send("bad request");
+    res.status(400).json({status:'bad request'})
 
-   }
-
+  }
   }catch(ex){
-    return res.status(500).send("error");
+    res.status(500).json({status:"error"});
   }
 });
+
+
+/////////////////////////////////////////////
+/*app.get('/myself', { useUnifiedTopology: true },  (req, res)=>{
+  MongoClient.connect(url, (err, client)=> {
+    const db=client.db("register");
+    const collection =db.collection("users");
+    const doc=[{email:"emailAddress" , firstName:"firstName"}, {lastName:"lastName" , password:"password"}, {confirmPassword:"confirmPassword" , mobile:"mobile" }];
+    collection.insertOne(doc, (error) =>{
+      if(!error){
+        //console.log(doc)
+        client.close();
+        console.log(result.ops)
+        res.status(200).send('ok')
+        
+
+      }else{
+        client.close();
+        res.status(400).send("is an error")
+      }
+      
+    });
+  });
+      
+})
+*/
 
 
 ///////////////////**********POST for Login**************//////////////////
@@ -121,7 +153,7 @@ app.post ('/login', urlencodedParser, (req, res)=>{
         const db=client.db("login")
         const collection =db.collection("loginusers")
         const doc={username:username , password:password };
-        collection.insertOne(doc), (error,result) =>{
+        collection.insertOne(doc, (error,result) =>{
           if(!error){
             client.close();
             console.log(result.ops)
@@ -132,7 +164,7 @@ app.post ('/login', urlencodedParser, (req, res)=>{
             res.send("is an error")
           }
           
-        };
+        });
       });
 
     }else{
@@ -158,7 +190,7 @@ app.post ('/contact', urlencodedParser, (req, res)=>{
         const db=client.db("contact")
         const collection =db.collection("contactusers")
         const doc={yourname:name , yourEmail:email, mobile:phone, message:message };
-        collection.insertOne(doc), (error,result) =>{
+        collection.insertOne(doc, (error,result) =>{
           if(!error){
             client.close();
             console.log(result.ops)
@@ -169,7 +201,7 @@ app.post ('/contact', urlencodedParser, (req, res)=>{
             res.send("is an error")
           }
           
-        };
+        });
       });
 
     }else{
@@ -187,5 +219,3 @@ app.post ('/contact', urlencodedParser, (req, res)=>{
 app.listen(port, ()=>{
   console.log(`Server is listening on port ${port}`)
 });
-
-
