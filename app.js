@@ -1,11 +1,12 @@
 //Importing  express module
-//////////**********************Importing middlewares***************///////////////////
+//////////**********************Importing Libraries***************///////////////////
 const express=require("express");
 const urlencodedParser = express.urlencoded({ extended: true });
 const pug =require("pug")
 const MongoClient = require("mongodb").MongoClient;
 const url = "mongodb://localhost:27017";
 const port=5000;
+const bcrypt=require("bcrypt");
 //ExpressJS application
 const app=express();
 /////////////********************Routes******************/////////////
@@ -79,65 +80,36 @@ app.post ('/register', urlencodedParser, (req, res)=>{
   let mobile=req.body.mobile
   
  if(emailAddress && firstName && lastName && password && confirmPassword && mobile)
-  { 
-    
+  { //res.status(200).send({status:'ok'})
+    //console.log(req.body)
     MongoClient.connect(url, { useUnifiedTopology: true }, (err, client)=> {
       const db=client.db("register")
       const collection =db.collection("users")
       const doc={email:emailAddress , firstName:firstName, lastName:lastName , password:password, confirmPassword:confirmPassword , mobile:mobile };
-      collection.insertOne(doc, (error) =>{
+      collection.insertOne(doc, (error, result) =>{
         if(!error){
-         // console.log(doc)
           client.close();
-          //console.log(result.ops)
-          res.json({status:'ok'})
-         // res.send(doc)
+            console.log(result.ops)
+            res.send (doc)
           
 
         }else{
           client.close();
-          res.json({status:"is an error"})
+          res.send("is an error")
         }
         
       });
     });
-    //return res.status(200).json({}) 
+    
     
    }else{
-    //res.status(400).send("bad request");
-    res.status(400).json({status:'bad request'})
+    return res.status(400).send("bad request");
 
   }
   }catch(ex){
-    res.status(500).json({status:"error"});
+    return res.status(500).send("error");
   }
 });
-
-
-/////////////////////////////////////////////
-/*app.get('/myself', { useUnifiedTopology: true },  (req, res)=>{
-  MongoClient.connect(url, (err, client)=> {
-    const db=client.db("register");
-    const collection =db.collection("users");
-    const doc=[{email:"emailAddress" , firstName:"firstName"}, {lastName:"lastName" , password:"password"}, {confirmPassword:"confirmPassword" , mobile:"mobile" }];
-    collection.insertOne(doc, (error) =>{
-      if(!error){
-        //console.log(doc)
-        client.close();
-        console.log(result.ops)
-        res.status(200).send('ok')
-        
-
-      }else{
-        client.close();
-        res.status(400).send("is an error")
-      }
-      
-    });
-  });
-      
-})
-*/
 
 
 ///////////////////**********POST for Login**************//////////////////
@@ -147,6 +119,8 @@ app.post ('/login', urlencodedParser, (req, res)=>{
   
     let username=req.body.name;
     let password=req.body.password;
+    //let hashedPassword = bcrypt.hash(password, 10)
+  //console.log(hashedPassword)
     if(username && password){
     
       MongoClient.connect(url, { useUnifiedTopology: true }, (err, client)=> {

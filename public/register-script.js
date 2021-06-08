@@ -62,7 +62,7 @@ window.onload = function () {
       body:JSON.stringify(data)
     };
     const response = await fetch('/register', options);
- /*console.log(response)
+ console.log(response)
    const json= await response.json();
    console.log(json);
    if(response.status==200){
@@ -70,18 +70,18 @@ window.onload = function () {
     
    }else{
     console.log("error")
-   }*/
+   }
 
-   const json= await  response.json();
+   
 
-   if(response.status==200){
-    
+   /*if(response.status==200){
+    const json= await  response.json();
    console.log(json)
    let result =document.getElementById("prayer");
    result.innerHTML=`User:Email: ${emailAddress.value}  \n Firstname: ${firstName.value}  \n Lastname: ${lastName.value}  \n Password: ${password.value}  \n Confirm Password: ${confirmPassword.value} \n Mobile: ${mobileNumber.value} `
   }else{
     result.innerHTML="There is an error. Please check."
-  }
+  }*/
 
     };
     
