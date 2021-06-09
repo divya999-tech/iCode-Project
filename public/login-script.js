@@ -31,10 +31,10 @@ window.onload = function () {
     
     const response = await  fetch('/login', options);
    //console.log(response)
-       const json= await  response.json();
-     // console.log(json);
+       const id= await  response.json();
+     console.log(id);
       if(response.status==200){
-       window.location.href="/menu"
+       window.location.href="/products"
       }else{
        console.log("error")
       }

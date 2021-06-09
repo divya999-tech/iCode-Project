@@ -43,8 +43,7 @@ window.onload = function () {
   }else if(password.value.length>30){
     window.alert("Please check the length of the password ")
 
-  }
-  
+  }  
   else{
     //window.alert(template)
     const data={
@@ -56,6 +55,7 @@ window.onload = function () {
     mobile:mobileNumber.value
     
     };
+    
     let options={
       method:'POST',
      headers: { "Content-type": "application/json; charset=UTF-8"  },
@@ -63,8 +63,8 @@ window.onload = function () {
     };
     const response = await fetch('/register', options);
  console.log(response)
-   const json= await response.json();
-   console.log(json);
+   const id= await response.json();
+   console.log(id);
    if(response.status==200){
     window.location.href="/login"
     

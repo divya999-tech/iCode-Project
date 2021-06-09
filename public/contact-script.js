@@ -44,8 +44,8 @@ window.onload=function(){
         
         const response = await  fetch('/contact', options);
         console.log(response)
-            const json= await  response.json();
-           console.log(json);
+            const id= await  response.json();
+           console.log(id);
            if(response.status==200){
             window.location.href="./welcome"
            }else{
