@@ -1,18 +1,33 @@
 //Importing  express module
 //////////**********************Importing Libraries***************///////////////////
 const express=require("express");
+const port=process.env.PORT || 5000;
 const urlencodedParser = express.urlencoded({ extended: true });
-const pug =require("pug")
 const MongoClient = require("mongodb").MongoClient;
 const url = "mongodb://localhost:27017";
-const port=process.env.PORT || 5000;
 const bcrypt=require("bcrypt");
 //ExpressJS application
 const app=express();
+
+
+//////////////*******************Middleware******************///////////////
+app.use(express.static("public"))
+app.use(express.json())
+app.use(urlencodedParser)
+
+app.use(function (req, res, next) {
+    res.header("Access-Control-Allow-Origin", "*");
+    res.header(
+    "Access-Control-Allow-Headers",
+    "Origin, X-Requested-With, Content-Type, Accept"
+  );
+  next();
+});
+
 /////////////********************Routes******************/////////////
 //Routes for home page
 app.get('/', (req,res)=>{
-  res.sendFile(__dirname +'/public/index.html');
+  res.sendFile(__dirname +'/public/index.html');//Route handler
  
 });
 //Route to Contact page
@@ -45,28 +60,11 @@ app.get('/products', (req,res)=>{
   res.sendFile(__dirname +'/public/products.html');
  
 });
-//////////***********************Template Engine*************8888888888888888//////////////////
+//////////***********************Template Engine*****************//////////////////
 app.set('view engine', 'pug')
-//Route to Home page
-//app.get('/views/welcome', (req,res)=>{
- // res.send('welcome')
-//})
 
-//////////////*******************Middleware******************///////////////
-app.use(express.static("public"))
-app.use(express.json())
-app.use(urlencodedParser)
 
-app.use(function (req, res, next) {
-    res.header("Access-Control-Allow-Origin", "*");
-    res.header(
-    "Access-Control-Allow-Headers",
-    "Origin, X-Requested-With, Content-Type, Accept"
-  );
-  next();
-});
-
-///////////////**********GET method for views*****************////////////////
+///////////////**********Route for views*****************////////////////
 app.get('/welcome', (req,res)=>{
   res.render('welcome')
 })
@@ -82,60 +80,70 @@ app.post ('/register', urlencodedParser,  (req, res)=>{
     console.log(salt1)
     console.log(hashedRegPassword)
     console.log(hashedConfirmPassword)*/
-  let emailAddress=req.body.emailaddress;
+  let email=req.body.emailaddress;
   let firstName=req.body.firstName;
   let lastName=req.body.lastName;
   let password=req.body.password;
   let confirmPassword=req.body.confirmPassword;
   let mobile=req.body.mobile
    
- if(emailAddress && firstName && lastName && password && confirmPassword && mobile)
+ if(email && firstName && lastName && password && confirmPassword && mobile)
   { //res.status(200).send({status:'ok'})
     //console.log(req.body)
     
-    MongoClient.connect(url, { useUnifiedTopology: true }, (err, client)=> {
+    MongoClient.connect(url, { useUnifiedTopology: true }, async (err, client)=> {
       const db=client.db("register")
       const collection =db.collection("users")
-      const doc={email:emailAddress , firstName:firstName, lastName:lastName , password:password, confirmPassword:confirmPassword , mobile:mobile };
-      /*collection.findOne({email:emailAddress}, (err,result)=>{
-        if(error){
-         console.log("User exists")
+      const doc={email:email , firstName:firstName, lastName:lastName , password:password, confirmPassword:confirmPassword , mobile:mobile };
+    const findUser= await collection.findOne({email:req.body.emailaddress})
+   //console.log(findUser)
+        if(findUser){
+          console.log("User already exists")
+          res.send({error:'User already exists'})
+
 
         }else{
-          collection.insertOne(doc)
-
-        }
-      })
-    */
-      /*db.collection.find({ "email": "email" })
-      if the result length == 0 // Insert a new doc
-      db.collection.insertOne(doc)
-      else {
-      res.send('email already exists').status(400)
-      }*/
-  
-      collection.insertOne(doc, (error, result) =>{
-        if(!error){
-          client.close();
-            console.log(result.ops)
-            res.send (doc)
+          const newUser=await collection.insertOne(doc) 
+              res.send (newUser)
+              
+              
           
 
-        }else{
-          client.close();
-          res.send("is an error")
         }
-      
-      });
+      // const find = await collection.findOne({email:emailAddress})
+      // console.log(`Here are the ${find} values`)
+       /*if(find==null){
+        collection.insertOne(doc)
+       }else{
+        console.log("user already exit")
+       }*/
+        
+       /* collection.insertOne(doc, (error, result) =>{
+          if(!error){
+            client.close();
+              //console.log(result.ops)
+              res.send (doc)
+            
+  
+          }else{
+            client.close();
+            res.send("is an error")
+          }*/
+     })
     
-    });
+   
+   
+      //});
     
-    
-   }else{
-    return res.status(400).send("bad request");
+   
+  
+  
+ }else{
+     res.status(400).send("bad request");
 
   }
-  }catch(ex){
+
+ }catch(ex){
     return res.status(500).send("error");
   }
 });
@@ -145,22 +153,37 @@ app.post ('/register', urlencodedParser,  (req, res)=>{
 app.post ('/login', urlencodedParser, async (req, res)=>{
   
   try{
-    let salt=await bcrypt.genSalt()
-    let hashedPassword=await bcrypt.hash(req.body.password, salt)
+    //let salt=await bcrypt.genSalt()
+    //let hashedPassword=await bcrypt.hash(req.body.password, 10)
    // console.log(salt)
     //console.log(hashedPassword)
-   // let compare=await bcrypt.compare(req.body.password, user.password)
-    //console.log(compare)
+   //let compare=await bcrypt.compare(req.body.password, hashedPassword)
+   //console.log(compare)
     
-    let username=req.body.name;
+    let email=req.body.email;
+    let password=req.body.password;
     
-    if(username && hashedPassword){
+    if(email && password){
              
-      MongoClient.connect(url, { useUnifiedTopology: true },  (err, client)=> {
-        const db=client.db("login")
-        const collection =db.collection("loginusers")
-        const doc={username:username , password:hashedPassword };
-        collection.insertOne(doc, (error,result) =>{
+      MongoClient.connect(url, { useUnifiedTopology: true },  async (err, client)=> {
+        const db=client.db("register")
+        const collection =db.collection("users")
+        const doc={email:email , password:password };
+        const loginFindUser=await collection.findOne(doc)
+        console.log(loginFindUser)
+        if(!loginFindUser){
+          console.log("Invalid username/password")
+         res.status(400).send("Invalid username/password")
+         
+
+        }else {
+          //const newLoginUser= await collection.insertOne(doc)
+          //res.send(newLoginUser)
+          return res.json({
+          status:'ok'
+          })
+        }
+        /*collection.insertOne(doc, (error,result) =>{
           if(!error){
             client.close();
             console.log(result.ops)
@@ -172,7 +195,7 @@ app.post ('/login', urlencodedParser, async (req, res)=>{
             res.send("is an error")
           }
           
-        });
+        });*/
       });
 
     }else{
@@ -183,6 +206,10 @@ app.post ('/login', urlencodedParser, async (req, res)=>{
     return res.status(500).send("error");
   }
 });
+
+
+
+
 ///////////////////**********POST for Contact**************//////////////////
 app.post ('/contact', urlencodedParser, (req, res)=>{
   

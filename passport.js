@@ -1,4 +1,5 @@
 const localStrategy= require("passport-local").Strategy;
+const MongoClient = require("mongodb").MongoClient;
 const bcrypt = require('bcrypt')
 
 function initialize(passport, getUserByName, getUserById){

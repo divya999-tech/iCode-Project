@@ -1,24 +1,34 @@
 window.onload = function () {
     let formEle = document.getElementById("myform");
-    let name = document.getElementById("username");
+    let email = document.getElementById("username");
     let password = document.getElementById("secret");
+    let errorMessage=document.getElementById("error")
     
 
     formEle.addEventListener("submit", async (e)=>{
       e.preventDefault();
-      if (name.value === "" || password.value === "") {
-        window.alert("Please fill the fields");
-      } else if(name.value.length>30) {
-        window.alert("PLease check the length of the characters")
+      if (email.value === "" || password.value === "") {
+        //window.alert("Please fill the fields");
+        errorMessage.textContent="Please fill the fields";
+    errorMessage.style.color="red";
+
+      } else if(email.value.length>30) {
+       // window.alert("PLease check the length of the characters")
+       errorMessage.textContent="Please check the length of characters";
+    errorMessage.style.color="red";
+
 
       }else if(password.value.length>30){
-        window.alert("Please check the length of the password")
+        //window.alert("Please check the length of the password")
+        errorMessage.textContent="Please check the password length. It should not be more than 30 characters";
+    errorMessage.style.color="red";
+
 
       }
       else {
        // window.alert(`Hi my name is ${name.value} \n Password: ${password.value}`);
        const data1={
-        name:name.value ,
+        email:email.value ,
        password:password.value ,
            
        };

@@ -10,6 +10,7 @@ window.onload = function () {
   let password = document.getElementById("security");
   let confirmPassword = document.getElementById("passwo");
   let mobileNumber = document.getElementById("phone");
+  let errorMessage=document.getElementById("error")
   //let phoneno = /^\(?([0-9]{3})\)?[-. ]?([0-9]{3})[-. ]?([0-9]{4})$/;
   //let template =`emailaddress:  ${emailAddress.value} \n firstname: ${firstName.value} \n lastname: ${lastName.value} \n password: ${password.value} \n confirmpassword: ${confirmPassword.value} and mobilenumber: ${mobileNumber.value}`
   if ( emailAddress.value === "" ||
@@ -21,27 +22,39 @@ window.onload = function () {
    
   ) 
   {
-    window.alert("All fields are required");
+    errorMessage.textContent="All fields are required";
+    errorMessage.style.color="red";
+    //window.alert("All fields are required");
   } else if (password.value!==confirmPassword.value){
-    
-    window.alert("Password doesnot match. Please check")
+    errorMessage.textContent="Password doesnot match. Please check";
+    errorMessage.style.color="red";
+    //window.alert("Password doesnot match. Please check")
     
   }else if(mobileNumber.value.length!==10){
-    window.alert("Please check length of the mobile number")
-    
+    //window.alert("Please check length of the mobile number")
+    errorMessage.textContent="Please check length of the mobile number";
+    errorMessage.style.color="red";
 
 
   }else if(isNaN(mobileNumber.value)) {
-    window.alert("Please check")
+    //window.alert("Please check")
+    errorMessage.textContent="Please check mobile number should only be numbers";
+    errorMessage.style.color="red";
 
   }else if(firstName.value.length>30){
-    window.alert("Please check the length of the first name characters ")
+    errorMessage.textContent="Please check the length of the first name characters";
+    errorMessage.style.color="red";
+    //window.alert("Please check the length of the first name characters ")
 
   } else if (lastName.value.length>30){
-    window.alert("Please check the length of the last name characters ")
+    errorMessage.textContent="Please check the length of the last name characters";
+    errorMessage.style.color="red";
+    //window.alert("Please check the length of the last name characters ")
 
   }else if(password.value.length>30){
-    window.alert("Please check the length of the password ")
+    errorMessage.textContent="Please check the length of the password";
+    errorMessage.style.color="red";
+    //window.alert("Please check the length of the password ")
 
   }  
   else{
@@ -62,7 +75,7 @@ window.onload = function () {
       body:JSON.stringify(data)
     };
     const response = await fetch('/register', options);
- console.log(response)
+ //console.log(response)
    const id= await response.json();
    console.log(id);
    if(response.status==200){

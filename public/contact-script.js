@@ -5,25 +5,36 @@ window.onload=function(){
     let yourEmail=document.getElementById("mail");
     let phoneNumber=document.getElementById("phone");
     let message=document.getElementById("message");
+    let errorMessage=document.getElementById("error")
     
     formContact.addEventListener("submit", async (event)=>{
         event.preventDefault();
         if(yourName.value=== ""  || yourEmail.value=== "" || phoneNumber.value=== "" || message.value=== ""){
-            window.alert("Please fill all the fields")
+           // window.alert("Please fill all the fields")
+           errorMessage.textContent="Please fill all the fields";
+    errorMessage.style.color="red";
             
         }else if(yourName.value.length>30) {
-            window.alert("PLease check the length of the characters")
+            //window.alert("PLease check the length of the characters")
+            errorMessage.textContent="Please check the length of the characters";
+    errorMessage.style.color="red";
     
           }else if(phoneNumber.value.length!==10){
-            window.alert("Please check length of the mobile number")
+            //window.alert("Please check length of the mobile number")
+            errorMessage.textContent="Please check the length of the mobile number";
+    errorMessage.style.color="red";
             
     
     
           }else if(isNaN(phoneNumber.value) ){
-            window.alert("please check the number. It should be only number")
+           // window.alert("please check the number. It should be only number")
+           errorMessage.textContent="Please check the number. It should be only number";
+    errorMessage.style.color="red";
     
           }else if(message.value.length>200){
-              window.alert("Please check the maximum length of characters")
+              //window.alert("Please check the maximum length of characters")
+              errorMessage.textContent="Please check the maximum length of characters";
+    errorMessage.style.color="red";
 
           }
         else{
@@ -47,7 +58,7 @@ window.onload=function(){
             const id= await  response.json();
            console.log(id);
            if(response.status==200){
-            window.location.href="./welcome"
+            window.location.href="/welcome"
            }else{
             console.log("error")
            }
@@ -71,4 +82,4 @@ window.onload=function(){
 
    
 
-     
+    
