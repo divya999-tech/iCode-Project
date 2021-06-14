@@ -190,9 +190,9 @@ app.post ('/login', urlencodedParser, async (req, res)=>{
         }else {
           //const newLoginUser= await collection.insertOne(doc)
           //res.send(newLoginUser)
-          return res.json({
-          status:'ok'
-          })
+          console.log(`Welcome ${email}`)
+          //return res.json({status:'ok'})
+          return res.json({status:'ok', message:`<p>Welcome ${email}</p>`})
         }
         /*collection.insertOne(doc, (error,result) =>{
           if(!error){
