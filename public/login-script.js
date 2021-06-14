@@ -44,7 +44,7 @@ window.onload = function () {
        const id= await  response.json();
      console.log(id);
       if(response.status==200){
-       window.location.href="/products"
+       window.location.href="products.html"
       }else{
        console.log("error")
       }

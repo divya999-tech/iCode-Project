@@ -58,7 +58,7 @@ window.onload=function(){
             const id= await  response.json();
            console.log(id);
            if(response.status==200){
-            window.location.href="/welcome"
+            window.location.href="/contactwelcome"
            }else{
             console.log("error")
            }

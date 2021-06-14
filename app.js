@@ -6,6 +6,9 @@ const urlencodedParser = express.urlencoded({ extended: true });
 const MongoClient = require("mongodb").MongoClient;
 const url = "mongodb://localhost:27017";
 const bcrypt=require("bcrypt");
+/*const passport= require("passport")
+const session = require("express-session");
+const flash=require("connect-flash");*/
 //ExpressJS application
 const app=express();
 
@@ -14,6 +17,10 @@ const app=express();
 app.use(express.static("public"))
 app.use(express.json())
 app.use(urlencodedParser)
+
+//app.use(passport.session());
+
+//app.use(flash());
 
 app.use(function (req, res, next) {
     res.header("Access-Control-Allow-Origin", "*");
@@ -58,7 +65,7 @@ app.get('/faq', (req,res)=>{
 //Route for product page
 app.get('/products', (req,res)=>{
   res.sendFile(__dirname +'/public/products.html');
- 
+ //res.send("You do not have access for this page")
 });
 //////////***********************Template Engine*****************//////////////////
 app.set('view engine', 'pug')
@@ -66,8 +73,12 @@ app.set('view engine', 'pug')
 
 ///////////////**********Route for views*****************////////////////
 app.get('/welcome', (req,res)=>{
-  res.render('welcome')
+  res.render('contactwelcome')
 })
+
+/*app.get('/products/logout', (req, res)=>{
+  res.render('logout')
+})*/
 
 ////////////////*******************Request Handler for for Register(POST requests)**********************////////////////
 app.post ('/register', urlencodedParser,  (req, res)=>{
@@ -173,7 +184,7 @@ app.post ('/login', urlencodedParser, async (req, res)=>{
         console.log(loginFindUser)
         if(!loginFindUser){
           console.log("Invalid username/password")
-         res.status(400).send("Invalid username/password")
+         return res.status(400).send({message: "Invalid username/password"})
          
 
         }else {
@@ -248,6 +259,12 @@ app.post ('/contact', urlencodedParser, (req, res)=>{
   }
 });
 
+///////////////////**********POST for Logout**************//////////////////
+app.post('/products', (req, res)=>{
+  
+   //res.send( 'You are logged out')
+  res.redirect('/')
+})
 
 
 ////////////////////////***************Port listening*******************///////////////

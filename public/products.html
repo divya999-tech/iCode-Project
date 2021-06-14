@@ -16,6 +16,7 @@
       crossorigin="anonymous"
     />
     <link href="styles.css" rel="stylesheet" />
+    <script src="products-script.js"></script>
     <style>
       article ul {
         font-family: "Lucida Console", "Courier New", monospace;
@@ -34,7 +35,19 @@
         color: darkmagenta;
         margin-bottom: 10px;
       }
+      #formproduct {
+        display: inline;
+        margin-left: 390px;
+      }
     </style>
+
+    <!--  <script>
+      window.onload = function () {
+        let formProd = document.getElementById("formproduct");
+        let firstName = document.getElementById("username");
+        formprod.addEventListener("click", () => {});
+      };
+    </script>-->
   </head>
 
   <body>
@@ -43,6 +56,7 @@
         <span>Free shipping on orders within Canada</span>
         <span>|</span>
         <span>100% Trustworthy Experience</span>
+        <form id="formproduct"><span id="username"></span></form>
         <span id="linked"><a href="login.html">Login</a></span>
         <span id="linked"><a href="register.html">Register</a></span>
       </div>
@@ -84,6 +98,13 @@
             </li>
             <li class="nav-item">
               <a class="nav-link" href="contact.html">Contact</a>
+            </li>
+            <li class="nav-item">
+              <form method="POST" action="/products">
+                <button type="submit" class="btn btn-primary mb-3">
+                  Log Out
+                </button>
+              </form>
             </li>
           </ul>
         </div>
@@ -150,7 +171,7 @@
           </li>
         </ul>
         <hr />
-        >
+
         <h1 id="prod1">Mutton Pickle</h1>
         <ul class="list-group">
           <li class="list-group-item list-group-item-primary">
