@@ -1,14 +1,16 @@
 //Importing  express module
 //////////**********************Importing Libraries***************///////////////////
 const express=require("express");
-const port=process.env.PORT || 5000;
+const port=5000;
 const urlencodedParser = express.urlencoded({ extended: true });
 const MongoClient = require("mongodb").MongoClient;
 const url = "mongodb://localhost:27017";
 const bcrypt=require("bcrypt");
-/*const passport= require("passport")
-const session = require("express-session");
-const flash=require("connect-flash");*/
+
+//const passport= require("passport")
+//const session = require("express-session");
+//const flash=require("connect-flash");
+//const cookieParser=require("cookie-parser")
 //ExpressJS application
 const app=express();
 
@@ -18,9 +20,13 @@ app.use(express.static("public"))
 app.use(express.json())
 app.use(urlencodedParser)
 
-//app.use(passport.session());
-
-//app.use(flash());
+//app.use(cookieParser('secret'));
+/*app.use(session({
+  secret:'cookie_secret',
+  resave:true,
+  saveUninitialized:true
+}));
+app.use(flash());*/
 
 app.use(function (req, res, next) {
     res.header("Access-Control-Allow-Origin", "*");
@@ -81,7 +87,7 @@ app.get('/welcome', (req,res)=>{
 })*/
 
 ////////////////*******************Request Handler for for Register(POST requests)**********************////////////////
-app.post ('/register', urlencodedParser,  (req, res)=>{
+app.post ('/register', urlencodedParser,  async (req, res)=>{
   //console.log(req.body);
   
   try{
@@ -109,8 +115,8 @@ app.post ('/register', urlencodedParser,  (req, res)=>{
     const findUser= await collection.findOne({email:req.body.emailaddress})
    //console.log(findUser)
         if(findUser){
-          console.log("User already exists")
-          res.send({error:'User already exists'})
+         // console.log("User already exists")
+          return res.status(400).send({message:'User already exists'})
 
 
         }else{
@@ -183,7 +189,7 @@ app.post ('/login', urlencodedParser, async (req, res)=>{
         const loginFindUser=await collection.findOne(doc)
         console.log(loginFindUser)
         if(!loginFindUser){
-          console.log("Invalid username/password")
+          //console.log("Invalid username/password")
          return res.status(400).send({message: "Invalid username/password"})
          
 
@@ -261,10 +267,12 @@ app.post ('/contact', urlencodedParser, (req, res)=>{
 
 ///////////////////**********POST for Logout**************//////////////////
 app.post('/products', (req, res)=>{
-  
+ //req.flash ('test', 'it worked')
    //res.send( 'You are logged out')
   res.redirect('/')
 })
+
+
 
 
 ////////////////////////***************Port listening*******************///////////////

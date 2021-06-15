@@ -82,7 +82,8 @@ window.onload = function () {
     window.location.href="/login"
     
    }else{
-    console.log("error")
+    errorMessage.innerHTML="User already Exists. Please check."
+    errorMessage.style.color="red";
    }
 
    

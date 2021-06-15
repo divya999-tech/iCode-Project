@@ -46,7 +46,8 @@ window.onload = function () {
       if(response.status==200){
        window.location.href="/products"
       }else{
-       console.log("error")
+       errorMessage.textContent="Invalid Username/Password or Please register";
+       errorMessage.style.color="red"
       }
 
      /* if(response.status==200){
