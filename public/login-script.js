@@ -3,6 +3,7 @@ window.onload = function () {
     let email = document.getElementById("username");
     let password = document.getElementById("secret");
     let errorMessage=document.getElementById("error")
+   
     
 
     formEle.addEventListener("submit", async (e)=>{
@@ -45,7 +46,8 @@ window.onload = function () {
      console.log(id);
       if(response.status==200){
        window.location.href="/products"
-      }else{
+       
+       }else{
        errorMessage.textContent="Invalid Username/Password or Please register";
        errorMessage.style.color="red"
       }

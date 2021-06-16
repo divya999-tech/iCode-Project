@@ -15,19 +15,26 @@
       crossorigin="anonymous"
     />
     <link href="styles.css" rel="stylesheet" />
+    <script src="faq-script.js"></script>
     <style>
       .faqpage {
         background-color: bisque;
         padding: 14px;
         border: none;
         margin: 10px;
+        cursor: pointer;
+        outline: none;
+        transition: 0.4s;
       }
+      .active,
       .faqpage:hover {
         color: darkolivegreen;
       }
       .panel {
         margin: 10px;
         overflow: hidden;
+        max-height: 0;
+        transition: max-height 0.2s ease-out;
       }
       section {
         background-image: url(images/paper.png);
