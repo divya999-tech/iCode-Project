@@ -1,8 +1,13 @@
+
+
 window.onload = function () {
     let formEle = document.getElementById("myform");
     let email = document.getElementById("username");
     let password = document.getElementById("secret");
-    let errorMessage=document.getElementById("error")
+    let errorMessage=document.getElementById("error");
+    let checkbox=document.getElementById("checkbox");
+    
+   console.log(checkbox.checked)
    
     
 
@@ -31,7 +36,7 @@ window.onload = function () {
        const data1={
         email:email.value ,
        password:password.value ,
-           
+         
        };
       
        let options={
@@ -46,6 +51,7 @@ window.onload = function () {
      console.log(id);
       if(response.status==200){
        window.location.href="/products"
+
        
        }else{
        errorMessage.textContent="Invalid Username/Password or Please register";

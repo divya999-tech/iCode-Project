@@ -6,6 +6,7 @@ const urlencodedParser = express.urlencoded({ extended: true });
 const MongoClient = require("mongodb").MongoClient;
 const url = "mongodb://localhost:27017";
 const bcrypt=require("bcrypt");
+const connectEnsureLogin=require("connect-ensure-login")
 
 //const passport= require("passport")
 //const session = require("express-session");
@@ -69,7 +70,8 @@ app.get('/faq', (req,res)=>{
  
 });
 //Route for product page
-app.get('/products', (req,res)=>{
+app.get('/products',  (req,res)=>{
+
   res.sendFile(__dirname +'/public/products.html');
  //res.send("You do not have access for this page")
 });
@@ -180,7 +182,7 @@ app.post ('/login', urlencodedParser, async (req, res)=>{
     let email=req.body.email;
     let password=req.body.password;
     
-    if(email && password){
+    if(email && password ){
              
       MongoClient.connect(url, { useUnifiedTopology: true },  async (err, client)=> {
         const db=client.db("register")
@@ -269,6 +271,12 @@ app.post ('/contact', urlencodedParser, (req, res)=>{
 app.post('/products', (req, res)=>{
  //req.flash ('test', 'it worked')
    //res.send( 'You are logged out')
+   res.redirect('/')
+})
+
+
+app.get('/logout', (req, res)=>{
+ // req.logOut();
   res.redirect('/')
 })
 
