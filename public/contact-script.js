@@ -6,6 +6,7 @@ window.onload=function(){
     let phoneNumber=document.getElementById("phone");
     let message=document.getElementById("message");
     let errorMessage=document.getElementById("error")
+    let successMessage=document.getElementById("success")
     
     formContact.addEventListener("submit", async (event)=>{
         event.preventDefault();
@@ -58,7 +59,8 @@ window.onload=function(){
             const id= await  response.json();
            console.log(id);
            if(response.status==200){
-            window.location.href="/contactwelcome"
+            successMessage.textContent="Thank you for your feedback";
+            successMessage.style.color="green"
            }else{
             console.log("error")
            }

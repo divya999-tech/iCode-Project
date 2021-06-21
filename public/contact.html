@@ -32,6 +32,11 @@
                
 
             }
+            #error, #success{
+                margin-left:20px;
+                width: 25%;
+
+            }
             
         </style>
         <script src="contact-script.js">
@@ -84,7 +89,8 @@
                 <h1  class="m-4">Contact Us</h1>
             <p class="m-3">For any queries or feedback, please contact</p>
             </div>
-            <p id="error"></p>
+            <p id="error" class="alert-danger"></p>
+            <p id="success" class="alert-success"></p>
            <div class="d-flex flex-row flex-wrap " id="article-container"> 
             <div id="contact-article" class="flex-sm-fill">
             <form id="myform" method="POST" action="/contact">

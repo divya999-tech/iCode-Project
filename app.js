@@ -49,8 +49,8 @@ app.get('/contact', (req,res)=>{
   res.sendFile(__dirname +'/public/contact.html');
 });
 //Route to Login page
-app.get('/login', (req,res)=>{
-  res.sendFile(__dirname +'/public/login.html');
+app.get('/login',  (req,res)=>{
+    res.sendFile(__dirname +'/public/login.html');
 });
 //Route to Register page
 app.get('/register', (req,res)=>{
@@ -70,7 +70,7 @@ app.get('/faq', (req,res)=>{
  
 });
 //Route for product page
-app.get('/products',  (req,res)=>{
+app.get('/products', (req,res)=>{
 
   res.sendFile(__dirname +'/public/products.html');
  //res.send("You do not have access for this page")
@@ -80,7 +80,7 @@ app.set('view engine', 'pug')
 
 
 ///////////////**********Route for views*****************////////////////
-app.get('/welcome', (req,res)=>{
+app.get('/contactwelcome', (req,res)=>{
   res.render('contactwelcome')
 })
 
@@ -275,11 +275,36 @@ app.post('/products', (req, res)=>{
 })
 
 
+///////////***********GET***********////////////////
+
 app.get('/logout', (req, res)=>{
  // req.logOut();
   res.redirect('/')
 })
 
+
+/*app.get ('/prodcuts', (req,res)=>{
+  MongoClient.connect(url, { useUnifiedTopology: true }, async (err, client)=> {
+    const db=client.db("register")
+    const collection =db.collection("users")
+    const loggedUser=await collection.findOne(email)
+    console.log(loggedUser)
+    if(loggedUser){
+     let id= req.query.email
+     console.log(id)
+      res.send(`Welcome ${id}`)
+    }
+
+  
+  
+  })
+
+
+
+  
+
+
+})*/
 
 
 

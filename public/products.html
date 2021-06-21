@@ -35,11 +35,22 @@
         color: darkmagenta;
         margin-bottom: 10px;
       }
-      #formproduct {
+      #username {
         display: inline;
         margin-left: 270px;
       }
     </style>
+    <!-- <script>
+        onload = async ()=>{
+        let successMessage = document.getElementById("username");
+
+
+        let response = await fetch("/products").then((response) => await response.json());
+        if (response.status == 200) {
+          successMessage.innerText = `Success`;
+        }
+      }
+    </script>-->
   </head>
 
   <body>
@@ -48,7 +59,9 @@
         <span>Free shipping on orders within Canada</span>
         <span>|</span>
         <span>100% Trustworthy Experience</span>
-        <form id="formproduct"><span id="username">Welcome User!!</span></form>
+
+        <span id="username"></span>
+
         <span id="linked"><a href="/login">Login</a></span>
         <span id="linked"><a href="/register">Register</a></span>
       </div>
