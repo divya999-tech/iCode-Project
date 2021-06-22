@@ -48,8 +48,8 @@ app.get('/', (req,res)=>{
 app.get('/contact', (req,res)=>{
   res.sendFile(__dirname +'/public/contact.html');
 });
-//Route to Login page
-app.get('/login',  (req,res)=>{
+/////Route to Login page
+ app.get('/login',  (req,res)=>{
     res.sendFile(__dirname +'/public/login.html');
 });
 //Route to Register page
@@ -88,6 +88,23 @@ app.get('/contactwelcome', (req,res)=>{
   res.render('logout')
 })*/
 
+
+
+//  app.get("/login", async (req, res)=>{
+//  try{
+//   MongoClient.connect(url, { useUnifiedTopology: true },  async (err, client)=> {
+//     const db=client.db("register")
+//   const collection =db.collection("users")
+//  const allUsers= await collection.find();
+//   return res.send(allUsers);
+//   })
+// } catch(err){
+// return res.status(500).json("is an error")
+//  } 
+ 
+// })
+
+
 ////////////////*******************Request Handler for for Register(POST requests)**********************////////////////
 app.post ('/register', urlencodedParser,  async (req, res)=>{
   //console.log(req.body);
@@ -119,6 +136,7 @@ app.post ('/register', urlencodedParser,  async (req, res)=>{
         if(findUser){
          // console.log("User already exists")
           return res.status(400).send({message:'User already exists'})
+          
 
 
         }else{
@@ -227,8 +245,6 @@ app.post ('/login', urlencodedParser, async (req, res)=>{
 });
 
 
-
-
 ///////////////////**********POST for Contact**************//////////////////
 app.post ('/contact', urlencodedParser, (req, res)=>{
   
@@ -281,6 +297,7 @@ app.get('/logout', (req, res)=>{
  // req.logOut();
   res.redirect('/')
 })
+
 
 
 /*app.get ('/prodcuts', (req,res)=>{
