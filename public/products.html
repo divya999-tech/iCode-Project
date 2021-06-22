@@ -40,6 +40,16 @@
         margin-left: 270px;
       }
     </style>
+    <!--- <script>
+      window.onload = function () {
+        let username = document.getElementById("username1");
+
+        await fetch("/products")
+          .then((response) => response.json())
+          .then((data3) => console.log(data3));
+        username.append(`welcome user`);
+      };
+    </script>-->
     <!-- <script>
         onload = async ()=>{
         let successMessage = document.getElementById("username");
@@ -59,8 +69,6 @@
         <span>Free shipping on orders within Canada</span>
         <span>|</span>
         <span>100% Trustworthy Experience</span>
-
-        <span id="username"></span>
 
         <span id="linked"><a href="/login">Login</a></span>
         <span id="linked"><a href="/register">Register</a></span>
